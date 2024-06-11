@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, tap } from "rxjs";
+import { Observable, of, tap } from "rxjs";
 import { User } from "../types/entity/user";
 
 interface LoginResponse {
@@ -9,7 +9,7 @@ interface LoginResponse {
 
 interface RegisterResponse {}
 
-interface GetMeReponmse {
+interface GetMeReponse {
   body: { user: User }
 }
 
@@ -64,13 +64,15 @@ export class AuthService {
 
    fetchUserDetails(): Observable<any> {
     const token = this.getToken();
-    if (!token) throw new Error('No token found');
+    if (!token) {
+      return of(null)
+    }
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<GetMeReponmse>(`${this.baseUrl}/user/me`, { headers });
+    return this.http.get<GetMeReponse>(`${this.baseUrl}/user/me`, { headers });
   }
 
 }

@@ -1,17 +1,22 @@
-<div class="login-container">
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <label for="email">Email:</label>
-    <input id="email" formControlName="email" type="email" />
-    <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
-      Email Inválido.
+<div class="login-container flex items-center justify-center min-h-screen bg-gray-100">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="bg-white p-6 rounded-lg shadow-md w-full max-w-sm">
+    <h2 class="text-2xl font-bold mb-6 text-center text-color1">Login</h2>
+    <div class="mb-4">
+      <label for="email" class="block text-gray-700">Email:</label>
+      <input id="email" formControlName="email" type="email" class="w-full px-3 py-2 border rounded" />
+      <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="text-red-500 text-sm mt-2">
+        Email Inválido.
+      </div>
     </div>
 
-    <label for="password">Senha:</label>
-    <input id="password" formControlName="password" type="password" />
-    <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-      Senha deve ter pelo menos 8 caracteres.
+    <div class="mb-4">
+      <label for="password" class="block text-gray-700">Senha:</label>
+      <input id="password" formControlName="password" type="password" class="w-full px-3 py-2 border rounded" />
+      <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="text-red-500 text-sm mt-2">
+        Senha deve ter pelo menos 8 caracteres.
+      </div>
     </div>
 
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <button type="submit" [disabled]="loginForm.invalid" class="w-full bg-color1 text-white py-2 rounded hover:bg-color3 disabled:opacity-50">Login</button>
   </form>
 </div>

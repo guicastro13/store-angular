@@ -1,30 +1,28 @@
-import { Component } from '@angular/core';
-import { RouterModule }  from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule, Router }  from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common';
 import { RegistroComponent } from './registro/registro.component';
 import { AuthService } from '../service/auth.service';
+import { User } from '../types/entity/user';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RegistroComponent, LoginComponent, CommonModule, RouterModule],
-  template: `
-    <nav>
-      <a *ngIf="!isLoggedIn()" routerLink="/login">Login</a>
-      <a *ngIf="!isLoggedIn()" routerLink="/register">Registro</a>
-      <span *ngIf="isLoggedIn()">Welcome, {{ userInfo?.name }}</span>
-      <button *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  userInfo: any;
+export class AppComponent implements OnInit {
+  userInfo: User | null = null;
 
-  constructor(private authService: AuthService) {
-    this.userInfo = this.authService.getUserInfo();
+  constructor(private authService: AuthService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.authService.fetchUserDetails().subscribe(
+      userDetails => this.userInfo = userDetails,
+      error => console.error("faild to fetch user details", error)
+    );
   }
 
   isLoggedIn(): boolean {
@@ -33,6 +31,6 @@ export class AppComponent {
 
   logout(): void {
     this.authService.logout();
-    window.location.reload();
+    this.router.navigate(['/login'])
   }
 }
