@@ -1,0 +1,29 @@
+<div class="registro-container">
+  <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+    <label for="name">Nome:</label>
+    <input id="name" formControlName="name" type="text" />
+    <div *ngIf="registroForm.controls['name'].invalid && registroForm.controls['name'].touched">
+      Nome é obrigatório.
+    </div>
+
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+    <div *ngIf="registroForm.controls['email'].invalid && registroForm.controls['email'].touched">
+      Email inválido.
+    </div>
+
+    <label for="password">Senha:</label>
+    <input id="password" formControlName="password" type="password" />
+    <div *ngIf="registroForm.controls['password'].invalid && registroForm.controls['password'].touched">
+      Senha deve ter pelo menos 8 caracteres.
+    </div>
+
+    <label for="cep">CEP:</label>
+    <input id="cep" formControlName="cep" type="text" />
+    <div *ngIf="registroForm.controls['cep'].invalid && registroForm.controls['cep'].touched">
+      CEP é obrigatório.
+    </div>
+
+    <button type="submit" [disabled]="registroForm.invalid">Registrar</button>
+  </form>
+</div>
