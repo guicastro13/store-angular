@@ -12,6 +12,9 @@ module.exports = {
         color4: '#8c6ef5',
         color5: '#ac85ff',
       },
+      backgroundImage: {
+        'custom-gradient': 'radial-gradient(circle, #FFFFFF, #AC85FF)',
+      },
     },
   },
   plugins: [],

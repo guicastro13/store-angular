@@ -1,0 +1,10 @@
+<div class="fixed bottom-0 right-0 p-4 m-4 max-w-sm bg-white border border-gray-300 rounded shadow-md">
+    <div [ngClass]="{
+      'bg-green-500 text-white': type === 'success',
+      'bg-red-500 text-white': type === 'error',
+      'bg-blue-500 text-white': type === 'info'
+    }" class="px-4 py-2 rounded">
+      <span>{{ message }}</span>
+      <button (click)="closeToast()" class="float-right">&times;</button>
+    </div>
+  </div>

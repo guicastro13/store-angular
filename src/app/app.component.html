@@ -1,9 +1,12 @@
-<nav class="fixed top-0 right-0 left-0 bg-color1 text-white shadow-md p-4 flex justify-end space-x-4 z-10">
-  <a *ngIf="!isLoggedIn()" routerLink="/login" class="hover:text-color5">Login</a>
-  <a *ngIf="!isLoggedIn()" routerLink="/register" class="hover:text-color5">Registro</a>
-  <span *ngIf="isLoggedIn()">Welcome, {{ userInfo?.name }}</span>
-  <button *ngIf="isLoggedIn()" (click)="logout()" class="hover:text-color5">Logout</button>
-</nav>
-<div class="mt-16">
-  <router-outlet></router-outlet>
+<div class="bg-custom-gradient min-h-screen flex flex-col">
+  <nav class="fixed top-0 right-0 left-0 bg-color1 text-white shadow-md p-4 flex justify-end space-x-4 z-10">
+    <a *ngIf="!isLoggedIn()" routerLink="/login" class="hover:text-color5">Login</a>
+    <a *ngIf="!isLoggedIn()" routerLink="/register" class="hover:text-color5">Registro</a>
+    <span *ngIf="isLoggedIn()">Welcome, <span class="text-lg text-color5 font-bold">{{ userInfo?.name }}</span></span>
+    <button *ngIf="isLoggedIn()" (click)="logout()" class="hover:text-color5">Logout</button>
+  </nav>
+  <div class="mt-16 flex-grow">
+    <router-outlet></router-outlet>
+  </div>
 </div>
+<app-toast *ngFor="let toast of toasts; index as i" [message]="toast.message" [type]="toast.type" (closed)="removeToast(i)"></app-toast>
