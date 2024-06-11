@@ -22,9 +22,9 @@ export class ToastService {
         this.toasts.next(currentToasts);
     }
 
-    removeToast(index: number): void {
+    removeToast(position: number): void {
         const currentToasts = this.toasts.getValue();
-        currentToasts.splice(index, 1)
+        currentToasts.splice(position, 1)
         this.toasts.next(currentToasts);
     }
 }

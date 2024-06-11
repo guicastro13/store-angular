@@ -62,7 +62,7 @@ export class AuthService {
     return {email: payload.email, name: payload.name}
   }
 
-   fetchUserDetails(): Observable<any> {
+  fetchUserDetails(): Observable<any> {
     const token = this.getToken();
     if (!token) {
       return of(null)

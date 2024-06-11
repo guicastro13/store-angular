@@ -12,12 +12,11 @@ import { Toast, ToastService } from '../service/toast.service';
   selector: 'app-root',
   standalone: true,
   imports: [RegistroComponent, LoginComponent, CommonModule, RouterModule, ToastComponent],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   userInfo: User | null = null;
-  toasts: Toast[] = [];
+  toasts: { toast: Toast, position: number }[] = [];
 
   constructor(
     private authService: AuthService,
@@ -27,7 +26,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.toastService.getToast().subscribe(toasts => {
-      this.toasts = toasts;
+      this.toasts = toasts.map((toast, index) => ({ toast, position: index }));
     });
 
     this.authService.fetchUserDetails().subscribe(
@@ -36,8 +35,8 @@ export class AppComponent implements OnInit {
     );
   }
 
-  removeToast(index: number) {
-    this.toastService.removeToast(index);
+  removeToast(position: number) {
+    this.toastService.removeToast(position);
   }
 
   isLoggedIn(): boolean {
@@ -47,6 +46,7 @@ export class AppComponent implements OnInit {
   logout(): void {
     this.userInfo = null;
     this.authService.logout();
+    this.toastService.setToast({ message: 'Logout realizado com sucesso!', type: 'success' });
     this.router.navigate(['/login'])
   }
 }

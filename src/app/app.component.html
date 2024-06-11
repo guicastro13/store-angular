@@ -9,4 +9,5 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-<app-toast *ngFor="let toast of toasts; index as i" [message]="toast.message" [type]="toast.type" (closed)="removeToast(i)"></app-toast>
+<app-toast *ngFor="let toast of toasts; index as i" [message]="toast.toast.message" [type]="toast.toast.type" (closed)="removeToast(i)"></app-toast>
+ 

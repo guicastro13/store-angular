@@ -14,15 +14,6 @@ import { AuthService } from '../../service/auth.service';
   `,
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent implements OnInit {
-  user: User | null = null;
-  constructor(private authService: AuthService) {}
+export class DashboardComponent  {
 
-  ngOnInit(): void {
-    console.log(this.user)
-    this.authService.fetchUserDetails().subscribe(
-      userDetails => console.log(userDetails),
-      error => console.error('Failed to fetch user details', error)
-    );
-  }
 }

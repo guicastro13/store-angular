@@ -5,8 +5,7 @@ import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
   selector: 'app-toast',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './toast.component.html',
-  styleUrl: './toast.component.css'
+  templateUrl: './toast.component.html'
 })
 export class ToastComponent implements OnInit {
   @Input() message: string = '';
