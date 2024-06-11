@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../service/auth.service';
 
 @Component({
   selector: 'app-registro',
@@ -12,7 +13,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 export class RegistroComponent {
    registroForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService) {
     this.registroForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -23,7 +24,14 @@ export class RegistroComponent {
 
   onSubmit() {
     if (this.registroForm.valid) {
-      console.log(this.registroForm.value);
+      this.authService.register(this.registroForm.value).subscribe(
+        response => {
+          console.log("Resgistration successful: ", response);
+        },
+        error => {
+            console.error("Resgistration failed: ", error);
+          }
+      );
     }
   }
 }
